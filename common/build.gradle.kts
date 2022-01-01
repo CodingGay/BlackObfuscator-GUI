@@ -24,6 +24,7 @@ kotlin {
                 api(compose.material)
                 api(compose.preview)
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+                api("net.lingala.zip4j:zip4j:2.9.1")
             }
         }
         val commonTest by getting {
@@ -43,7 +44,7 @@ kotlin {
             }
         }
         val desktopMain by getting
-        
+
         val desktopTest by getting
     }
 }
