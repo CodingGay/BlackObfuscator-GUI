@@ -37,10 +37,7 @@ actual class IObfuscator actual constructor(private var flow: FlowCollector<Stri
             }
         }
 
-        close()
     }
 
-    suspend fun close() {
-    }
 }
 

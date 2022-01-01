@@ -1,5 +1,5 @@
 package cn.kaicity.common.platform
 
-expect fun chooseFile(): String
+expect fun chooseFile(callback:(String)->Unit)
 
-expect fun saveFile(): String
+expect fun saveFile(callback: (String) -> Unit)

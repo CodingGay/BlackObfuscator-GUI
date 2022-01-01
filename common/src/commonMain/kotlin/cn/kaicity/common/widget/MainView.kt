@@ -10,11 +10,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +40,7 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
     var depthIsError by remember { mutableStateOf(false) }
     var rule by remember { mutableStateOf("") }
 
+
     val textFieldModifier = Modifier.padding(12.dp).fillMaxWidth()
 
 
@@ -53,7 +51,9 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
             isError = inputIsError,
             trailingIcon = {
                 Icon(Icons.Default.Search, "Menu", modifier = Modifier.clickable {
-                    input = chooseFile()
+                    chooseFile {
+                        input = it
+                    }
                 })
             },
             label = {
@@ -71,7 +71,9 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
                 Text("Output")
             }, trailingIcon = {
                 Icon(Icons.Default.Search, "Menu", modifier = Modifier.clickable {
-                    output = saveFile()
+                    saveFile {
+                        output = it
+                    }
                 })
             },
             placeholder = {
@@ -82,13 +84,17 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
 
         Row(modifier = Modifier.fillMaxWidth()) {
             Box(modifier = Modifier.weight(0.3F)) {
-                OutlinedTextField(value = depth, modifier = textFieldModifier, isError = depthIsError,
+                OutlinedTextField(value = depth,
+                    modifier = textFieldModifier,
+                    isError = depthIsError,
+                    singleLine = true,
                     label = {
                         Text("Depth")
                     },
                     placeholder = {
-                        Text("Obfuscator Depth")
-                    }, onValueChange = {
+                        Text("Depth")
+                    },
+                    onValueChange = {
                         depth = it
                     })
 
@@ -107,6 +113,7 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
 
             }
         }
+
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Button(modifier = Modifier.padding(12.dp), onClick = {
                 inputIsError = input.isEmpty()

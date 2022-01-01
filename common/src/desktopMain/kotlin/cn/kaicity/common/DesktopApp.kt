@@ -9,9 +9,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import cn.kaicity.common.bean.InputBean
+import cn.kaicity.common.repository.ApkObf
 import cn.kaicity.common.repository.DexObf
 import cn.kaicity.common.widget.LogView
 import cn.kaicity.common.widget.MainView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @Preview
 @Composable
@@ -25,14 +31,37 @@ fun AppMain() {
     var log by remember { mutableStateOf("") }
 
 
+    val logCallback = { it: String ->
+        log = "$log\n$it"
+    }
+
     Row(modifier = Modifier.fillMaxWidth()) {
         MainView(modifier = Modifier.weight(0.5F)) {
-            log = "Black Obfuscator Start\n"
-
-            DexObf.run(it) { l ->
-                log = log + "\n" + l
+            if (it.input.endsWith(".dex")) {
+                log = "Start Obfuscator Dex"
+                obfDex(it, logCallback)
+            } else if (it.input.endsWith(".apk")) {
+                log = "Start Obfuscator Apk"
+                obfApk(it, logCallback)
+            } else {
+                log = "Only support Dex or Apk"
             }
+
         }
         LogView(modifier = Modifier.weight(0.5F), log)
+    }
+}
+
+
+private fun obfDex(inputBean: InputBean, logCallback: (log: String) -> Unit) {
+    GlobalScope.launch(Dispatchers.IO){
+        DexObf.run(inputBean,logCallback)
+    }
+}
+
+private fun obfApk(inputBean: InputBean, logCallback: (log: String) -> Unit) {
+    GlobalScope.launch(Dispatchers.IO){
+        ApkObf.run(inputBean,logCallback)
+        logCallback.invoke("Please Sign APK!!!")
     }
 }
