@@ -32,10 +32,8 @@ compose.desktop {
         mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "jvm"
+            packageName = "BlackObfuscator"
             packageVersion = "1.0.0"
-
-            appResourcesRootDir.set(project.layout.projectDirectory.dir("lib"))
         }
     }
 }

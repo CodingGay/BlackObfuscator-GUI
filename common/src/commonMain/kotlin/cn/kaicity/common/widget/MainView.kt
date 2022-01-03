@@ -121,9 +121,11 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
                 depthIsError = depth.isEmpty()
                 //pkgIsError do not need check
 
+
                 if (inputIsError || outputIsError || depthIsError) {
                     return@Button
                 }
+
                 btnClick.invoke(InputBean(input, output, depth, rule))
             }) {
                 Text("Obfuscator")
