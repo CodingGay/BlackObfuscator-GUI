@@ -1,6 +1,7 @@
 package cn.kaicity.common
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import cn.kaicity.common.bean.InputBean
 import cn.kaicity.common.repository.ApkObf
 import cn.kaicity.common.repository.DexObf
@@ -35,7 +37,7 @@ fun AppMain() {
         log = "$log\n$it"
     }
 
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
         MainView(modifier = Modifier.weight(0.5F)) {
             if (it.input.endsWith(".dex")) {
                 log = "Start Obfuscator Dex"
@@ -54,14 +56,20 @@ fun AppMain() {
 
 
 private fun obfDex(inputBean: InputBean, logCallback: (log: String) -> Unit) {
-    GlobalScope.launch(Dispatchers.IO){
-        DexObf.run(inputBean,logCallback)
+    GlobalScope.launch(Dispatchers.IO) {
+        try {
+
+            DexObf.run(inputBean, logCallback)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            logCallback.invoke("Obfuscator Dex Fail")
+            logCallback.invoke(e.message ?: "")
+        }
     }
 }
 
 private fun obfApk(inputBean: InputBean, logCallback: (log: String) -> Unit) {
-    GlobalScope.launch(Dispatchers.IO){
-        ApkObf.run(inputBean,logCallback)
-        logCallback.invoke("Please Sign APK!!!")
+    GlobalScope.launch(Dispatchers.IO) {
+        ApkObf.run(inputBean, logCallback)
     }
 }

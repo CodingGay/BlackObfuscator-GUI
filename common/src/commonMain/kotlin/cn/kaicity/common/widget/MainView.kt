@@ -52,7 +52,9 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
             trailingIcon = {
                 Icon(Icons.Default.Search, "Menu", modifier = Modifier.clickable {
                     chooseFile {
-                        input = it
+                        if(it.isNotEmpty()){
+                            input = it
+                        }
                     }
                 })
             },
@@ -72,7 +74,9 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
             }, trailingIcon = {
                 Icon(Icons.Default.Search, "Menu", modifier = Modifier.clickable {
                     saveFile {
-                        output = it
+                        if(it.isNotEmpty()){
+                            output = it
+                        }
                     }
                 })
             },

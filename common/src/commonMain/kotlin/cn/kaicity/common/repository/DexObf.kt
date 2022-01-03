@@ -35,8 +35,6 @@ object DexObf {
         flow {
             obfuscatorImpl = IObfuscator(this)
             obfuscatorImpl?.doObfuscator(params.toTypedArray())
-        }.catch {
-            logCallback.invoke("Error")
         }.onCompletion {
             filterFile.delete()
             logCallback.invoke("Finish")

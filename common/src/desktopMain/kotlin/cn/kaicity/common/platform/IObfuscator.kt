@@ -2,8 +2,10 @@ package cn.kaicity.common.platform
 
 import kotlinx.coroutines.flow.FlowCollector
 import java.io.BufferedReader
+import java.io.File
 import java.io.InputStreamReader
 import java.nio.charset.Charset
+import java.util.concurrent.TimeUnit
 
 
 actual class IObfuscator actual constructor(private var flow: FlowCollector<String>) {
@@ -14,11 +16,13 @@ actual class IObfuscator actual constructor(private var flow: FlowCollector<Stri
         val param = args.joinToString(" ")
 
         val rawPath = "./dex-tools/black-obfuscator"
+        val absolutePath = File(rawPath).absolutePath
+        println(absolutePath)
 
         val shell = if (os.contains("windows")) {
-            "$rawPath.bat d2j-black-obfuscator $param \n"
+            "$absolutePath.bat d2j-black-obfuscator $param \n"
         } else {
-            "$rawPath.sh d2j-black-obfuscator $param \n"
+            "$absolutePath.sh d2j-black-obfuscator $param \n"
         }
 
         val process = Runtime.getRuntime().exec(shell)

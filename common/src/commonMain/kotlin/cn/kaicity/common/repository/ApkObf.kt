@@ -8,6 +8,7 @@ object ApkObf {
 
     suspend fun run(inputBean: InputBean, logCallback: (log: String) -> Unit) {
         val workDir = File(File(inputBean.output).parentFile, "temp")
+        val targetApk = File(inputBean.output)
         try {
             val originApk = File(inputBean.input)
             if (!originApk.exists()) {
@@ -15,7 +16,6 @@ object ApkObf {
                 return
             }
 
-            val targetApk = File(inputBean.output)
             if (targetApk.exists()) {
                 targetApk.delete()
             }
@@ -38,9 +38,13 @@ object ApkObf {
 
             zip(workDir.absolutePath, originApk, targetApk)
 
+            logCallback.invoke("Please Sign APK!!!")
+
         } catch (e: Exception) {
+            e.printStackTrace()
             logCallback.invoke("Error!!!")
             logCallback.invoke(e.message.toString())
+            targetApk.delete()
         } finally {
             removeFile(workDir)
         }
