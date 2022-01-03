@@ -27,23 +27,16 @@ object ApkObf {
             val dexList = workDir.listFiles { name ->
                 name.extension == "dex"
             }
-
-            val dexOut = File(workDir,"dexDump")
-            dexOut.mkdir()
-
             dexList?.forEach {
                 logCallback.invoke("Start Obfuscator ${it.name}")
                 val dexInputBean =
-                    InputBean(it.absolutePath, dexOut.absolutePath+"/" + it.name, inputBean.depth, inputBean.rule)
+                    InputBean(it.absolutePath, workDir.absolutePath + "/" + it.name, inputBean.depth, inputBean.rule)
                 DexObf.run(dexInputBean, logCallback)
             }
 
-
-            originApk.copyTo(File(inputBean.output))
-
             logCallback.invoke("Start Package Apk")
 
-            zip(dexOut.absolutePath, inputBean.output)
+            zip(workDir.absolutePath, originApk, targetApk)
 
         } catch (e: Exception) {
             logCallback.invoke("Error!!!")
@@ -63,26 +56,23 @@ object ApkObf {
         }
     }
 
-    //todo
-    private fun zip(path: String, apk: String) {
+    private fun zip(path: String, origin: File, targetApk: File) {
         val dexList = File(path).listFiles { name ->
             name.extension == "dex"
         }?.toList()
 
-        ZipFile(apk).use {
+        origin.copyTo(targetApk)
+        ZipFile(targetApk).use {
             it.addFiles(dexList)
         }
 
     }
 
-    //todo
+
     private fun unzip(apk: String, path: String) {
         ZipFile(apk).use {
             it.extractAll(path)
         }
-
     }
-
-
 
 }
