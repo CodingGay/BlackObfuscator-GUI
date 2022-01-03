@@ -15,7 +15,7 @@ actual class IObfuscator actual constructor(private var flow: FlowCollector<Stri
 
         val param = args.joinToString(" ")
 
-        val rawPath = "./dex-tools/black-obfuscator"
+        val rawPath = "dex-tools/black-obfuscator"
         val absolutePath = File(rawPath).absolutePath
         println(absolutePath)
 
