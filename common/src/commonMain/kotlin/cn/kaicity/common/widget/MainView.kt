@@ -24,6 +24,7 @@ import cn.kaicity.common.bean.InputBean
 import cn.kaicity.common.platform.chooseFile
 import cn.kaicity.common.platform.saveFile
 
+
 /**
  * 首页
  *
@@ -52,7 +53,7 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
             trailingIcon = {
                 Icon(Icons.Default.Search, "Menu", modifier = Modifier.clickable {
                     chooseFile {
-                        if(it.isNotEmpty()){
+                        if (it.isNotEmpty()) {
                             input = it
                         }
                     }
@@ -74,7 +75,7 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
             }, trailingIcon = {
                 Icon(Icons.Default.Search, "Menu", modifier = Modifier.clickable {
                     saveFile {
-                        if(it.isNotEmpty()){
+                        if (it.isNotEmpty()) {
                             output = it
                         }
                     }
@@ -119,7 +120,7 @@ fun MainView(modifier: Modifier, btnClick: (InputBean) -> Unit) {
         }
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-            Button(modifier = Modifier.padding(12.dp), onClick = {
+            Button(modifier = Modifier.padding(12.dp),  onClick = {
                 inputIsError = input.isEmpty()
                 outputIsError = output.isEmpty()
                 depthIsError = depth.isEmpty()

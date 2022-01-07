@@ -17,7 +17,6 @@ actual class IObfuscator actual constructor(private var flow: FlowCollector<Stri
 
         val rawPath = "dex-tools/black-obfuscator"
         val absolutePath = File(rawPath).absolutePath
-        println(absolutePath)
 
         val shell = if (os.contains("windows")) {
             "$absolutePath.bat d2j-black-obfuscator $param \n"

@@ -1,6 +1,5 @@
 package cn.kaicity.common
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,14 +18,9 @@ import cn.kaicity.common.widget.MainView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
-@Preview
-@Composable
-fun AppPreview() {
-    AppMain()
-}
 
+var enableObfuscator = true
 
 @Composable
 fun AppMain() {
@@ -39,6 +33,12 @@ fun AppMain() {
 
     Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
         MainView(modifier = Modifier.weight(0.5F)) {
+
+            if (!enableObfuscator) {
+                log += "\nThere are tasks running"
+                return@MainView
+            }
+
             if (it.input.endsWith(".dex")) {
                 log = "Start Obfuscator Dex"
                 obfDex(it, logCallback)
@@ -58,18 +58,28 @@ fun AppMain() {
 private fun obfDex(inputBean: InputBean, logCallback: (log: String) -> Unit) {
     GlobalScope.launch(Dispatchers.IO) {
         try {
-
+            enableObfuscator = false
             DexObf.run(inputBean, logCallback)
         } catch (e: Throwable) {
             e.printStackTrace()
             logCallback.invoke("Obfuscator Dex Fail")
             logCallback.invoke(e.message ?: "")
+        } finally {
+            enableObfuscator = true
         }
     }
 }
 
 private fun obfApk(inputBean: InputBean, logCallback: (log: String) -> Unit) {
     GlobalScope.launch(Dispatchers.IO) {
-        ApkObf.run(inputBean, logCallback)
+        try {
+            enableObfuscator = false
+            ApkObf.run(inputBean, logCallback)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        } finally {
+            enableObfuscator = true
+
+        }
     }
 }
