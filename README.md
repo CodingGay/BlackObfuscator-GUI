@@ -1,18 +1,8 @@
 # BlackObfuscator-GUI
-
-> BlackObfuscator GUI 工具
+本项目为 [BlackObfuscator](https://github.com/CodingGay/BlackObfuscator) 的 GUI 工具。功能及介绍方面请查看 [BlackObfuscator](https://github.com/CodingGay/BlackObfuscator) 源项目
 
 #### 环境说明
 1. JDK11或以上
-2. 前往BlackObfuscator的Release界面下载打包好的工具
-3. 解压到jar同级目录，并重命名为dex-tools
->dex-tools
-> > lib
->
-> > bin
->
-> BlackObfuscator.jar
-
 
 #### 运行说明
 1. 可直接下载Released包
@@ -26,12 +16,8 @@
 
 #### 运行效果
 
-
-
 ![](images/image1.png)
 
 ![](images/image2.png)
-
-
 
 ![](images/image3.png)
