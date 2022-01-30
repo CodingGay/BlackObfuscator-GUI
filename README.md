@@ -8,7 +8,7 @@
 
 #### 运行说明
 1. 可直接下载Released包
-2. 解压，双击clickme.bat(Windows)或者clickme.sh(Macos/Linux)
+2. 解压，双击clickme.bat(Windows)或者clickme.sh(MacOS)
 
 #### 参数说明
 1. Input 要混淆的apk或者dex的路径，可点击右侧图标跳转选择

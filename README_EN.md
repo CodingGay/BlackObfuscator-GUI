@@ -6,7 +6,7 @@ JDK11 or later
 
 #### Usage
 1. Download zip file in [releases](https://github.com/CodingGay/BlackObfuscator-GUI/releases).
-2. Unzip and double clike clickme.bat(Windows) or clickme.sh(Macos/Linux).
+2. Unzip and double clike clickme.bat(Windows) or clickme.sh(MacOS).
 
 #### Parameter
 Parameter | Description 
