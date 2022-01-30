@@ -1,5 +1,3 @@
-**[English Version](README_EN.md)**
-
 # BlackObfuscator-GUI
 This project is an graphical utility based on [BlackObfuscator](https://github.com/CodingGay/BlackObfuscator). More information about this project are in [BlackObfuscator](https://github.com/CodingGay/BlackObfuscator).
 

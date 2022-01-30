@@ -1,3 +1,5 @@
+**[English Version](README_EN.md)**
+
 # BlackObfuscator-GUI
 本项目为 [BlackObfuscator](https://github.com/CodingGay/BlackObfuscator) 的 GUI 工具。功能及介绍方面请查看 [BlackObfuscator](https://github.com/CodingGay/BlackObfuscator) 源项目
 
